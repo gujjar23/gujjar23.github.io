@@ -13,13 +13,9 @@
 html{scroll-behavior:auto;}
 body{background:var(--navy);color:var(--white);font-family:var(--fB);overflow-x:hidden;cursor:none;}
 ::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--cyan);}
-
-/* CURSOR */
 #cD,#cR{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);}
 #cD{width:6px;height:6px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);transition:width .15s,height .15s,background .2s;}
 #cR{width:32px;height:32px;border:1px solid rgba(0,212,255,.45);transition:width .25s,height .25s;}
-
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 56px;display:flex;justify-content:space-between;align-items:center;transition:all .4s;}
 nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56px;box-shadow:0 1px 0 rgba(0,212,255,.08);}
 .logo{font-family:var(--fD);font-size:.95rem;color:var(--cyan);text-decoration:none;letter-spacing:4px;}
@@ -29,14 +25,6 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
 .nav-ul a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
 .nav-ul a:hover{color:var(--cyan);}
 .nav-ul a:hover::after{width:100%;}
-
-/* =====================================================
-   SECTION TRANSITION MASKS
-   Each section is wrapped in .scene.
-   The .smask inside covers the section initially, then
-   GSAP scroll-scrubs it away as the section enters view.
-   Each section gets a unique wipe direction/style.
-===================================================== */
 .scene{position:relative;overflow:hidden;isolation:isolate;}
 .smask{position:absolute;inset:0;z-index:20;pointer-events:none;will-change:transform;}
 
@@ -67,10 +55,8 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
 .s-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:sline 2s ease-in-out infinite;}
 @keyframes sline{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* SHARED SECTION STYLES */
 .s-wrap{background:var(--navy);}
 .sec{padding:100px 72px;max-width:1200px;margin:0 auto;}
-.sec-h{text-align:center;margin-bottom:52px;}
 .stag{font-family:var(--fM);font-size:.62rem;color:var(--cyan);letter-spacing:5px;text-transform:uppercase;margin-bottom:10px;opacity:.8;}
 .stag::before{content:'// ';}
 .sh{font-family:var(--fH);font-size:3.6rem;letter-spacing:5px;line-height:1.05;margin-bottom:20px;color:var(--white);}
@@ -102,29 +88,156 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
 .skt{background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.16);color:var(--white);font-family:var(--fM);font-size:.6rem;padding:2px 8px;border-radius:2px;letter-spacing:1px;transition:background .2s,color .2s;}
 .skt:hover{background:var(--cyan);color:var(--navy);}
 
-/* EXPERIENCE */
-.etl{position:relative;padding-left:52px;}
-.etl::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--cyan),rgba(28,63,110,.4),transparent);}
-.eit{position:relative;margin-bottom:42px;opacity:0;transform:translateX(-32px);}
-.edot{position:absolute;left:-46px;top:8px;width:13px;height:13px;background:var(--navy);border:2px solid var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);transition:background .3s;}
-.eit:hover .edot{background:var(--cyan);}
-.epulse{position:absolute;inset:-4px;border:1px solid var(--cyan);border-radius:50%;animation:dpulse 2.2s ease-out infinite;}
-@keyframes dpulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.5);opacity:0}}
-.ecard{background:linear-gradient(135deg,rgba(11,15,28,.94),rgba(28,63,110,.08));border:1px solid rgba(0,212,255,.1);border-radius:8px;padding:24px 28px;transition:border-color .3s,box-shadow .3s;}
-.eit:hover .ecard{border-color:rgba(0,212,255,.34);box-shadow:0 3px 24px rgba(0,212,255,.08);}
-.emeta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
-.eco{font-family:var(--fD);font-size:.84rem;color:var(--white);letter-spacing:1px;}
-.edt{font-family:var(--fM);font-size:.64rem;color:var(--cyan);background:rgba(0,212,255,.07);padding:2px 9px;border:1px solid rgba(0,212,255,.16);border-radius:2px;}
-.erole{font-size:.86rem;color:var(--gold);font-style:italic;margin-bottom:12px;}
+/* ═══════════════════════════════════════
+   EXPERIENCE — SCROLL-DRIVEN TIMELINE
+═══════════════════════════════════════ */
+#exp-outer{background:linear-gradient(180deg,#07090f,#090c16);}
+#sc-exp{overflow:visible;}
+
+#exp-head{
+  max-width:1100px;margin:0 auto;
+  padding:100px 72px 0;
+  text-align:center;
+}
+
+/* Two-column: 32px rail | rest cards */
+#exp-body{
+  max-width:1100px;margin:0 auto;
+  padding:32px 72px 80px;
+  display:grid;
+  grid-template-columns:32px 1fr;
+  gap:0 32px;
+  align-items:stretch;
+}
+
+/* ── Rail column ── */
+#exp-rail{
+  position:relative;
+  /* stretches to #exp-cards height via grid align-items:stretch */
+}
+
+/* Dim background line running full height */
+#exp-rail::before{
+  content:'';
+  position:absolute;
+  left:50%;top:0;bottom:0;
+  transform:translateX(-50%);
+  width:2px;
+  background:rgba(0,212,255,.1);
+  border-radius:2px;
+}
+
+/* Glowing fill that grows downward as user scrolls */
+#exp-fill{
+  position:absolute;
+  left:50%;top:0;
+  transform:translateX(-50%);
+  width:2px;
+  height:0;
+  border-radius:2px;
+  background:linear-gradient(to bottom,var(--cyan),rgba(0,212,255,.45));
+  box-shadow:0 0 8px var(--cyan),0 0 18px rgba(0,212,255,.3);
+  pointer-events:none;
+}
+
+
+/* Glowing tip at bottom of fill */
+#exp-fill::after{
+  content:'';
+  position:absolute;
+  bottom:-5px;left:50%;
+  transform:translateX(-50%);
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 10px var(--cyan),0 0 24px rgba(0,212,255,.55);
+}
+
+/* Dot per card — top set by JS */
+.rdot{
+  position:absolute;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:11px;height:11px;
+  border-radius:50%;
+  background:#07090f;
+  border:2px solid rgba(0,212,255,.18);
+  z-index:3;
+  transition:background .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.rdot.on{
+  background:var(--cyan);
+  border-color:var(--cyan);
+  box-shadow:0 0 0 4px rgba(0,212,255,.15),0 0 14px var(--cyan);
+}
+
+/* ── Cards column ── */
+#exp-cards{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+/* Card row — starts invisible + shifted right */
+.eit{
+  opacity:0;
+  transform:translateX(48px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+  will-change:transform,opacity;
+}
+.eit.show{opacity:1;transform:translateX(0);}
+
+/* Dim effect when a later card arrives */
+.eit.dimmed .ecard{
+  filter:brightness(.6) saturate(.7);
+  transform:scale(.985);
+  transition:filter .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1), border-color .4s, box-shadow .4s;
+}
+.eit .ecard{
+  transform:scale(1);
+  transition:filter .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1), border-color .4s ease, box-shadow .4s ease;
+}
+
+/* Card box */
+.ecard{
+  background:linear-gradient(135deg,rgba(11,15,28,.96),rgba(28,63,110,.09));
+  border:1px solid rgba(0,212,255,.1);
+  border-radius:8px;
+  padding:22px 26px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .4s ease,box-shadow .4s ease;
+}
+.eit.show .ecard{border-color:rgba(0,212,255,.22);}
+.eit:hover .ecard{border-color:rgba(0,212,255,.4);box-shadow:0 4px 28px rgba(0,212,255,.1);}
+
+/* Top progress bar — sweeps right when .show is added */
+.ebar{
+  position:absolute;
+  top:0;left:0;
+  height:2px;
+  width:0%;
+  background:linear-gradient(90deg,var(--cyan),var(--gold));
+  box-shadow:0 0 8px rgba(0,212,255,.6);
+  transition:width 1s cubic-bezier(.22,1,.36,1) .2s;
+}
+.eit.show .ebar{width:100%;}
+
+/* Card content */
+.emeta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+.eco{font-family:var(--fD);font-size:.82rem;color:var(--white);letter-spacing:1px;}
+.edt{font-family:var(--fM);font-size:.62rem;color:var(--cyan);background:rgba(0,212,255,.1);padding:3px 10px;border:1px solid rgba(0,212,255,.3);border-radius:2px;white-space:nowrap;flex-shrink:0;}
+.erole{font-size:.84rem;color:var(--gold);font-style:italic;margin-bottom:11px;}
 .eul{list-style:none;}
-.eul li{font-size:.91rem;color:var(--gray);padding-left:16px;position:relative;margin-bottom:5px;line-height:1.6;}
-.eul li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:.64rem;top:3px;}
+.eul li{font-size:.9rem;color:var(--gray);padding-left:16px;position:relative;margin-bottom:5px;line-height:1.6;}
+.eul li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:.62rem;top:3px;}
 .eul li strong{color:var(--white);}
-.bgs{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px;}
+.bgs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
 .bg{font-family:var(--fM);font-size:.6rem;padding:2px 8px;border-radius:2px;letter-spacing:1px;}
 .bg-g{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--green);}
 .bg-c{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.25);color:var(--cyan);}
 .bg-o{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);color:var(--gold);}
+.ecard:hover{background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.055),rgba(11,15,28,.96) 65%);}
 
 /* PROJECTS */
 .pjgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
@@ -201,6 +314,9 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   .cttl{font-size:3rem;}
   .h-stats{gap:20px;}
   #contact{padding:72px 24px 80px;}
+  #exp-head{padding:72px 24px 0;}
+  #exp-body{grid-template-columns:1fr;padding:24px 24px 60px;}
+  #exp-rail{display:none;}
 }
 </style>
 </head>
@@ -219,12 +335,8 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
-  <div class="grid-bg"></div>
-  <canvas id="pCv"></canvas>
-  <div class="orb"></div>
-  <div class="scan"></div>
+  <div class="grid-bg"></div><canvas id="pCv"></canvas><div class="orb"></div><div class="scan"></div>
   <div class="hero-inner">
     <span class="h-badge" id="hBdg">Computer Science · Dalhousie University · Co-op Seeker</span>
     <div class="name-stage" id="nStg">
@@ -257,7 +369,7 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   <div class="s-hint" id="sHint"><span>scroll</span><div class="s-line"></div></div>
 </section>
 
-<!-- ABOUT: mask pulls UP from bottom -->
+<!-- ABOUT -->
 <div class="scene" id="sc-about">
   <div class="smask" id="mk-about" style="background:var(--navy);transform-origin:bottom;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#07090f,#0a0d18);">
@@ -277,12 +389,12 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </div>
 </div>
 
-<!-- SKILLS: mask wipes LEFT to RIGHT (diagonal) -->
+<!-- SKILLS -->
 <div class="scene" id="sc-skills">
   <div class="smask" id="mk-skills" style="background:linear-gradient(135deg,#0b0f1c 40%,#1c3f6e);transform-origin:left;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#0a0d18,#07090f);">
     <section class="sec" id="skills">
-      <div class="sec-h">
+      <div style="text-align:center;margin-bottom:52px;">
         <div class="stag" style="display:block;text-align:center;">arsenal</div>
         <h2 class="sh" style="text-align:center;">MY <span class="ac">SKILLS</span></h2>
       </div>
@@ -295,31 +407,87 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </div>
 </div>
 
-<!-- EXPERIENCE: mask curtain drops DOWN from top -->
+<!-- EXPERIENCE -->
 <div class="scene" id="sc-exp">
   <div class="smask" id="mk-exp" style="background:var(--navy);transform-origin:top;"></div>
-  <div class="s-wrap" style="background:linear-gradient(180deg,#07090f,#090c16);">
-    <section class="sec" id="experience">
-      <div class="sec-h">
-        <div class="stag" style="display:block;text-align:center;">work history</div>
-        <h2 class="sh" style="text-align:center;">EXPERI<span class="ac">ENCE</span></h2>
+  <div id="exp-outer" style="overflow:visible;">
+    <div id="exp-head" id="experience">
+      <div class="stag" style="display:block;text-align:center;">work history</div>
+      <h2 class="sh" style="text-align:center;margin-bottom:0;">EXPERI<span class="ac">ENCE</span></h2>
+    </div>
+    <div id="exp-body">
+      <!-- LEFT RAIL: line + dots (height matched to #exp-cards by JS) -->
+      <div id="exp-rail">
+        <div id="exp-fill"></div>
+        <div class="rdot" id="d0"></div>
+        <div class="rdot" id="d1"></div>
+        <div class="rdot" id="d2"></div>
+        <div class="rdot" id="d3"></div>
       </div>
-      <div class="etl">
-        <div class="eit"><div class="edot"><div class="epulse"></div></div><div class="ecard"><div class="emeta"><div class="eco">&#128300; Persuasive Computing Lab &mdash; Dalhousie</div><span class="edt">May 2025 &ndash; Jan 2026</span></div><div class="erole">Research Assistant &middot; AI + ML</div><ul class="eul"><li>Reviewed <strong>100+ research papers</strong> on HCI, lifting prediction accuracy by <strong>7%</strong>.</li><li>Built a <strong>Python data pipeline</strong> cutting analysis time by <strong>15%</strong>, accelerating delivery by one week.</li><li>Contributed to design and evaluation of intelligent models for real-world HCI applications.</li><li>Strengthened time management by consistently meeting project deadlines.</li></ul><div class="bgs"><span class="bg bg-g">+7% Accuracy</span><span class="bg bg-c">-15% Analysis Time</span><span class="bg bg-o">100+ Papers</span></div></div></div>
-        <div class="eit"><div class="edot"><div class="epulse"></div></div><div class="ecard"><div class="emeta"><div class="eco">&#127891; Dalhousie University &mdash; CSCI 1300</div><span class="edt">Jan 2025 &ndash; Apr 2025</span></div><div class="erole">Course Representative</div><ul class="eul"><li>Elected student representative acting as liaison between ~120 classmates and instructors.</li><li>Collected and communicated feedback to faculty, improving course structure and delivery.</li><li>Facilitated peer discussions and study sessions to support classmates.</li><li>Demonstrated initiative, accountability, and strong interpersonal skills in a leadership role.</li></ul><div class="bgs"><span class="bg bg-c">~120 Students</span><span class="bg bg-o">Elected Leadership</span></div></div></div>
-        <div class="eit"><div class="edot"><div class="epulse"></div></div><div class="ecard"><div class="emeta"><div class="eco">&#127967; Dalhousie Varsity Events (Dalplex)</div><span class="edt">Jan 2025 &ndash; Present</span></div><div class="erole">Event Team Member</div><ul class="eul"><li>Planned and executed university-wide sports and social events with cross-functional teams.</li><li>Solved operational challenges during live events to maintain seamless execution.</li><li>Demonstrated leadership by managing small teams during high-attendance events.</li></ul><div class="bgs"><span class="bg bg-c">Live Event Ops</span><span class="bg bg-o">Team Leadership</span></div></div></div>
-        <div class="eit"><div class="edot"><div class="epulse"></div></div><div class="ecard"><div class="emeta"><div class="eco">&#127828; McDonald&rsquo;s &mdash; Spring Garden, Halifax</div><span class="edt">Oct 2024 &ndash; Present</span></div><div class="erole">Crew Trainer</div><ul class="eul"><li>Trained and onboarded new crew members on food prep, safety standards, and customer service.</li><li>Ensured consistent adherence to quality, service, and cleanliness standards during shifts.</li><li>Guided team members in a fast-paced environment demonstrating strong communication and leadership.</li><li>Supported shift managers in daily operations and resolving customer concerns.</li></ul><div class="bgs"><span class="bg bg-g">Trainer Role</span><span class="bg bg-c">Fast-Paced Leadership</span></div></div></div>
+      <!-- CARDS -->
+      <div id="exp-cards">
+        <div class="eit">
+          <div class="ecard"><div class="ebar"></div>
+            <div class="emeta"><div class="eco">&#128300; Persuasive Computing Lab &mdash; Dalhousie</div><span class="edt">May 2025 &ndash; Jan 2026</span></div>
+            <div class="erole">Research Assistant &middot; AI + ML</div>
+            <ul class="eul">
+              <li>Reviewed <strong>100+ research papers</strong> on HCI, lifting prediction accuracy by <strong>7%</strong>.</li>
+              <li>Built a <strong>Python data pipeline</strong> cutting analysis time by <strong>15%</strong>, accelerating delivery by one week.</li>
+              <li>Contributed to design and evaluation of intelligent models for real-world HCI applications.</li>
+              <li>Strengthened time management by consistently meeting project deadlines.</li>
+            </ul>
+            <div class="bgs"><span class="bg bg-g">+7% Accuracy</span><span class="bg bg-c">-15% Analysis Time</span><span class="bg bg-o">100+ Papers</span></div>
+          </div>
+        </div>
+        <div class="eit">
+          <div class="ecard"><div class="ebar"></div>
+            <div class="emeta"><div class="eco">&#127891; Dalhousie University &mdash; CSCI 1300</div><span class="edt">Jan 2025 &ndash; Apr 2025</span></div>
+            <div class="erole">Course Representative</div>
+            <ul class="eul">
+              <li>Elected student representative acting as liaison between ~120 classmates and instructors.</li>
+              <li>Collected and communicated feedback to faculty, improving course structure and delivery.</li>
+              <li>Facilitated peer discussions and study sessions to support classmates.</li>
+              <li>Demonstrated initiative, accountability, and strong interpersonal skills in a leadership role.</li>
+            </ul>
+            <div class="bgs"><span class="bg bg-c">~120 Students</span><span class="bg bg-o">Elected Leadership</span></div>
+          </div>
+        </div>
+        <div class="eit">
+          <div class="ecard"><div class="ebar"></div>
+            <div class="emeta"><div class="eco">&#127967; Dalhousie Varsity Events (Dalplex)</div><span class="edt">Jan 2025 &ndash; Present</span></div>
+            <div class="erole">Event Team Member</div>
+            <ul class="eul">
+              <li>Planned and executed university-wide sports and social events with cross-functional teams.</li>
+              <li>Solved operational challenges during live events to maintain seamless execution.</li>
+              <li>Demonstrated leadership by managing small teams during high-attendance events.</li>
+            </ul>
+            <div class="bgs"><span class="bg bg-c">Live Event Ops</span><span class="bg bg-o">Team Leadership</span></div>
+          </div>
+        </div>
+        <div class="eit">
+          <div class="ecard"><div class="ebar"></div>
+            <div class="emeta"><div class="eco">&#127828; McDonald&rsquo;s &mdash; Spring Garden, Halifax</div><span class="edt">Oct 2024 &ndash; Present</span></div>
+            <div class="erole">Crew Trainer</div>
+            <ul class="eul">
+              <li>Trained and onboarded new crew members on food prep, safety standards, and customer service.</li>
+              <li>Ensured consistent adherence to quality, service, and cleanliness standards during shifts.</li>
+              <li>Guided team members in a fast-paced environment demonstrating strong communication and leadership.</li>
+              <li>Supported shift managers in daily operations and resolving customer concerns.</li>
+            </ul>
+            <div class="bgs"><span class="bg bg-g">Trainer Role</span><span class="bg bg-c">Fast-Paced Leadership</span></div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   </div>
 </div>
 
-<!-- PROJECTS: mask slides from RIGHT -->
+<!-- PROJECTS -->
 <div class="scene" id="sc-proj">
   <div class="smask" id="mk-proj" style="background:linear-gradient(135deg,#1a0030,#0d1428);transform-origin:right;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#090c16,#07090f);">
     <section class="sec" id="projects">
-      <div class="sec-h">
+      <div style="text-align:center;margin-bottom:52px;">
         <div class="stag" style="display:block;text-align:center;">built by me</div>
         <h2 class="sh" style="text-align:center;">PRO<span class="ac">JECTS</span></h2>
       </div>
@@ -331,12 +499,12 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </div>
 </div>
 
-<!-- EDUCATION: mask scales out from CENTER -->
+<!-- EDUCATION -->
 <div class="scene" id="sc-edu">
   <div class="smask" id="mk-edu" style="background:var(--navy);transform-origin:center;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#07090f,#0a0d18);">
     <section class="sec" id="education">
-      <div class="sec-h">
+      <div style="text-align:center;margin-bottom:52px;">
         <div class="stag" style="display:block;text-align:center;">academia</div>
         <h2 class="sh" style="text-align:center;">EDUCA<span class="ac">TION</span></h2>
       </div>
@@ -348,7 +516,7 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </div>
 </div>
 
-<!-- CERTIFICATIONS: mask sweeps from LEFT -->
+<!-- CERTIFICATIONS -->
 <div class="scene" id="sc-cert">
   <div class="smask" id="mk-cert" style="background:linear-gradient(90deg,#ffd700 0%,#0a0d18 55%);transform-origin:left;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#0a0d18,#07090f);">
@@ -363,7 +531,7 @@ nav.solid{background:rgba(7,9,15,.96);backdrop-filter:blur(16px);padding:12px 56
   </div>
 </div>
 
-<!-- ACHIEVEMENTS: mask radial burst scales UP and fades -->
+<!-- ACHIEVEMENTS -->
 <div class="scene" id="sc-ach">
   <div class="smask" id="mk-ach" style="background:radial-gradient(circle at center,rgba(255,215,0,.2),#07090f 65%);transform-origin:center;"></div>
   <div class="s-wrap" style="background:linear-gradient(180deg,#07090f,#090c16);">
@@ -420,8 +588,7 @@ window.addEventListener('scroll',()=>document.getElementById('nav').classList.to
 /* SVG HANDWRITING */
 window.addEventListener('load',()=>{
   const paths=[...document.querySelectorAll('#svgN path')];
-  const dot=document.getElementById('nDot');
-  const bold=document.getElementById('nBold');
+  const dot=document.getElementById('nDot'),bold=document.getElementById('nBold');
   paths.forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;});
   const tl=gsap.timeline({delay:.3});
   tl.to('#hBdg',{opacity:1,duration:.6,ease:'power2.out'});
@@ -441,59 +608,122 @@ let li=0,ci=0,dl=false;const tw=document.getElementById('twT');
 function type(){const s=ls[li];if(!dl){tw.textContent=s.slice(0,++ci);if(ci===s.length){dl=true;setTimeout(type,1700);return;}}else{tw.textContent=s.slice(0,--ci);if(ci===0){dl=false;li=(li+1)%ls.length;}}setTimeout(type,dl?40:80);}
 setTimeout(type,3500);
 
-/* ======================================================
-   SCROLL-SCRUBBED SECTION TRANSITIONS
-   Every .smask is tied to its section's scroll position.
-   As the section enters the viewport the mask retracts,
-   smoothly revealing the section beneath — no jumps,
-   no flashes, perfectly tied to your finger/wheel.
-====================================================== */
-const scenes=[
-  // [maskId, sceneId, retract-props, scrub-speed]
-  ['mk-about','sc-about', {scaleY:0,transformOrigin:'bottom'}, 1.4],
-  ['mk-skills','sc-skills',{scaleX:0,transformOrigin:'left'},  1.3],
-  ['mk-exp',  'sc-exp',   {scaleY:0,transformOrigin:'top'},    1.2],
-  ['mk-proj', 'sc-proj',  {scaleX:0,transformOrigin:'right'},  1.3],
-  ['mk-edu',  'sc-edu',   {scale:0, transformOrigin:'center'}, 1.4],
-  ['mk-cert', 'sc-cert',  {scaleX:0,transformOrigin:'left'},   1.2],
-  ['mk-ach',  'sc-ach',   {scale:2, opacity:0, transformOrigin:'center'}, 1.5],
-];
-
-scenes.forEach(([maskId, sceneId, props, spd])=>{
-  gsap.to('#'+maskId,{
-    ...props,
-    ease:'none',
-    scrollTrigger:{
-      trigger:'#'+sceneId,
-      start:'top 92%',
-      end:'top 8%',
-      scrub:spd
-    }
-  });
-});
+/* SECTION MASKS */
+[['mk-about','sc-about',{scaleY:0,transformOrigin:'bottom'},1.4],
+ ['mk-skills','sc-skills',{scaleX:0,transformOrigin:'left'},1.3],
+ ['mk-exp','sc-exp',{scaleY:0,transformOrigin:'top'},1.2],
+ ['mk-proj','sc-proj',{scaleX:0,transformOrigin:'right'},1.3],
+ ['mk-edu','sc-edu',{scale:0,transformOrigin:'center'},1.4],
+ ['mk-cert','sc-cert',{scaleX:0,transformOrigin:'left'},1.2],
+ ['mk-ach','sc-ach',{scale:2,opacity:0,transformOrigin:'center'},1.5]
+].forEach(([m,s,p,sp])=>gsap.to('#'+m,{...p,ease:'none',scrollTrigger:{trigger:'#'+s,start:'top 92%',end:'top 8%',scrub:sp}}));
 
 /* HERO PARALLAX */
 gsap.to('.grid-bg',{y:80,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1.5}});
 gsap.to('.orb',{scale:1.5,opacity:0,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:2}});
 gsap.to('.hero-inner',{y:-55,opacity:0,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1}});
 
-/* CONTENT REVEALS */
+/* ABOUT / SKILLS */
 gsap.from('#about-vis',{scrollTrigger:{trigger:'#about',start:'top 80%',toggleActions:'play none none none'},x:-60,opacity:0,duration:1,ease:'power3.out'});
 gsap.from('#about-txt > *',{scrollTrigger:{trigger:'#about',start:'top 75%',toggleActions:'play none none none'},y:36,opacity:0,duration:.85,stagger:.12,ease:'power2.out'});
-
 gsap.utils.toArray('.skcard').forEach((c,i)=>gsap.to(c,{scrollTrigger:{trigger:c,start:'top 88%',toggleActions:'play none none none'},opacity:1,y:0,duration:.7,delay:i*.1,ease:'back.out(1.5)'}));
-gsap.utils.toArray('.eit').forEach((e,i)=>gsap.to(e,{scrollTrigger:{trigger:e,start:'top 88%',toggleActions:'play none none none'},opacity:1,x:0,duration:.8,delay:i*.07,ease:'power3.out'}));
+
+/* ═══════════════════════════════════════════════════════
+   EXPERIENCE — RELIABLE SCROLL ENGINE (v4)
+
+   Architecture:
+   • #exp-body grid uses align-items:stretch so #exp-rail
+     naturally matches #exp-cards height — no JS height setting
+   • Dots: positioned with offsetTop relative to #exp-body
+     (not #exp-cards) so they align with the rail's coordinate space
+   • Fill: driven purely by requestAnimationFrame reading
+     getBoundingClientRect() — no GSAP dependency, no SVG dashoffset
+   • Card slide-in: CSS transition triggered by adding .show via
+     IntersectionObserver. .scene overflow is set to visible for
+     sc-exp so translateX doesn't get clipped
+   • Smooth dim: previous card gets .dimmed class which applies
+     filter:brightness via CSS transition
+════════════════════════════════════════════════════════ */
+(function(){
+  const body  = document.getElementById('exp-body');
+  const rail  = document.getElementById('exp-rail');
+  const fill  = document.getElementById('exp-fill');
+  const dots  = [0,1,2,3].map(i => document.getElementById('d'+i));
+  const items = [...document.querySelectorAll('.eit')];
+  let dotTops = [];
+
+  function placeDots(){
+    /* Dot Y = distance from top of #exp-body to vertical center of each card */
+    const bodyTop = body.getBoundingClientRect().top + window.scrollY;
+    dotTops = items.map(item => {
+      const itemTop = item.getBoundingClientRect().top + window.scrollY;
+      return (itemTop - bodyTop) + 24; /* 24px = near card top */
+    });
+    dots.forEach((dot, i) => { dot.style.top = dotTops[i] + 'px'; });
+  }
+
+  function updateFill(){
+    /* rail height is driven by CSS grid stretch — read it live */
+    const railH   = rail.offsetHeight;
+    const railRect = rail.getBoundingClientRect();
+    const vh      = window.innerHeight;
+
+    /* Progress: 0 when rail top enters at 80vh, 1 when rail bottom leaves at 20vh */
+    const entered  = (vh * 0.78) - railRect.top;
+    const total    = railH + vh * 0.58;
+    const progress = Math.min(Math.max(entered / total, 0), 1);
+    const px       = progress * railH;
+
+    fill.style.height = px + 'px';
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('on', px >= (dotTops[i] || 0) - 8);
+    });
+  }
+
+  /* Card reveal + stacking dim via IntersectionObserver */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const idx = items.indexOf(entry.target);
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+        if(idx > 0) items[idx - 1].classList.add('dimmed');
+      } else if(entry.boundingClientRect.top > 0){
+        /* scrolled back up — undo */
+        entry.target.classList.remove('show');
+        if(idx > 0) items[idx - 1].classList.remove('dimmed');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+  items.forEach(item => io.observe(item));
+
+  function tick(){
+    updateFill();
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('load', () => {
+    placeDots();
+    updateFill();
+    requestAnimationFrame(tick);
+  });
+
+  window.addEventListener('resize', () => {
+    placeDots();
+  }, { passive: true });
+})();
+
+/* OTHER REVEALS */
 gsap.utils.toArray('.pjcard').forEach((c,i)=>gsap.to(c,{scrollTrigger:{trigger:c,start:'top 88%',toggleActions:'play none none none'},opacity:1,scale:1,duration:.85,delay:i*.12,ease:'back.out(1.2)'}));
 gsap.to('.educard',{scrollTrigger:{trigger:'.educard',start:'top 83%',toggleActions:'play none none none'},opacity:1,y:0,duration:1,ease:'power3.out'});
 gsap.utils.toArray('.cecard').forEach((c,i)=>gsap.to(c,{scrollTrigger:{trigger:c,start:'top 88%',toggleActions:'play none none none'},opacity:1,x:0,duration:.8,delay:i*.16,ease:'power3.out'}));
 gsap.utils.toArray('.achcard').forEach((c,i)=>gsap.to(c,{scrollTrigger:{trigger:c,start:'top 89%',toggleActions:'play none none none'},opacity:1,y:0,duration:.7,delay:i*.07,ease:'back.out(1.6)'}));
-
-/* Section titles clip reveal */
 gsap.utils.toArray('.sh').forEach(el=>gsap.from(el,{scrollTrigger:{trigger:el,start:'top 89%',toggleActions:'play none none none'},clipPath:'inset(0 100% 0 0)',opacity:0,duration:.9,ease:'power3.out'}));
 
 /* Hover glow */
 document.querySelectorAll('.ecard').forEach(c=>{
-  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.background='radial-gradient(circle at '+((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%,rgba(0,212,255,.05),rgba(11,15,28,.92) 55%)';});
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.background='radial-gradient(circle at '+((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%,rgba(0,212,255,.06),rgba(11,15,28,.96) 55%)';});
   c.addEventListener('mouseleave',()=>c.style.background='');
 });
 
